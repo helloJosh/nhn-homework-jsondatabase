@@ -21,6 +21,24 @@ public class Main {
         MemberServiceValidator memberService = new MemberServiceValidator();
         UpdateHistoryService updateHistory = new UpdateHistoryService();
 
+        /*
+         * java -jar recorder -a -t user -i 1234 -n "xtra" -f ./recorder.json
+         * java -jar recorder -l -t user -f ./recorder.json
+         * java -jar recorder -u -t user -i 1234 -name "updated" -f ./recorder.json
+         * java -jar recorder -s -t user -i 1234 -f ./recorder.json
+         * java -jar recorder -D -t user -i 1234 -f ./recorder.json
+         * 
+         * java -jar recorder -a -t item -i 1234 -n "xtra" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
+         * java -jar recorder -s -t item -i 1234 -f ./recorder.json
+         * java -jar recorder -l -t item -f ./recorder.json
+         * java -jar recorder -u -t item -i 1234 -n "updated" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
+         * 
+         * java -jar recorder -a -t match -i 1234 -n "xtra" -f ./recorder.json
+         * 
+         * java -jar recorder -l -t history -f ./recorder.json
+         * 
+         */
+        
 
         Options options = new Options();
         Option[] optionArray = new Option[OPTION_COUNT];
