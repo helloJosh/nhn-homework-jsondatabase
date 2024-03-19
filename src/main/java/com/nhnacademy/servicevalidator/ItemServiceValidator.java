@@ -37,6 +37,7 @@ public class ItemServiceValidator {
         if(!(0 <= attackSpeed && attackSpeed <= 100))
             throw new IllegalArgumentException("공격속도는 0~100지만 설정할 수 있습니다.");
         ItemUpdateDto updateParam = new ItemUpdateDto(model, energy, attack, defense, movingSpeed, attackSpeed);
+        
         itemRepository.update(id, updateParam);
     }
     public void remove(int id){

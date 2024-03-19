@@ -22,20 +22,24 @@ public class Main {
         UpdateHistoryService updateHistory = new UpdateHistoryService();
 
         /*
-         * java -jar recorder -a -t user -i 1234 -n "xtra" -f ./recorder.json
-         * java -jar recorder -l -t user -f ./recorder.json
-         * java -jar recorder -u -t user -i 1234 -name "updated" -f ./recorder.json
-         * java -jar recorder -s -t user -i 1234 -f ./recorder.json
-         * java -jar recorder -D -t user -i 1234 -f ./recorder.json
+         * Member
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -a -t user -i 1234 -n "xtra" -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -l -t user -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -u -t user -i 1234 -name "updated" -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -s -t user -i 1234 -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -D -t user -i 1234 -f ./recorder.json
          * 
-         * java -jar recorder -a -t item -i 1234 -n "xtra" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
-         * java -jar recorder -s -t item -i 1234 -f ./recorder.json
-         * java -jar recorder -l -t item -f ./recorder.json
-         * java -jar recorder -u -t item -i 1234 -n "updated" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
+         * Item
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -a -t item -i 1234 -n "xtra" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -s -t item -i 1234 -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -l -t item -f ./recorder.json
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -u -t item -i 1234 -n "updated" -e 10 -a 10 -d 10 -m 10 -as 10 -f ./recorder.json
          * 
-         * java -jar recorder -a -t match -i 1234 -n "xtra" -f ./recorder.json
+         * Match
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -a -t match -i 1234 -n "xtra" -f ./recorder.json
          * 
-         * java -jar recorder -l -t history -f ./recorder.json
+         * History
+         * java -jar target/recorder-1.0-SNAPSHOT.jar -l -t history -f ./recorder.json
          * 
          */
         

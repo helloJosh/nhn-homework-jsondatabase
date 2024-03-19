@@ -1,1 +1,15 @@
+com/nhnacademy/repository/MemberRepository.class
+com/nhnacademy/domain/Item.class
+com/nhnacademy/domain/Member.class
+com/nhnacademy/domain/UpdateHistory.class
+com/nhnacademy/repository/ItemRepository.class
+com/nhnacademy/domain/Match.class
+com/nhnacademy/repository/ItemUpdateDto.class
+com/nhnacademy/servicevalidator/UpdateHistoryService.class
+com/nhnacademy/repository/UpdateHistoryRepository.class
+com/nhnacademy/servicevalidator/MatchService.class
+com/nhnacademy/servicevalidator/ItemServiceValidator.class
+com/nhnacademy/repository/MatchRepository.class
+com/nhnacademy/JsonFileWorker.class
+com/nhnacademy/servicevalidator/MemberServiceValidator.class
 com/nhnacademy/Main.class

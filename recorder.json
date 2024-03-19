@@ -2,10 +2,6 @@
     "item": [],
     "match": [],
     "member": [
-        {
-            "name": "xtra",
-            "id": 1235
-        }
     ],
     "history": [],
     "updateHistory": [
@@ -44,6 +40,14 @@
         {
             "history": "2024-03-20T01:39:50.439870",
             "updatedContext": "Member Removed"
+        },
+        {
+            "history": "2024-03-20T01:44:42.128390",
+            "updatedContext": "Member Saved"
+        },
+        {
+            "history": "2024-03-20T01:45:08.004372",
+            "updatedContext": "Member Updated"
         }
     ]
 }

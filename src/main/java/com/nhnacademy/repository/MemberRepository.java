@@ -66,7 +66,7 @@ public class MemberRepository {
         try{
             memberArray = originalObject.getJSONArray(MEMBER_KEY);
         } catch(JSONException e){
-            System.out.println("item 배열이 없어 찾을수 없습니다.");
+            System.out.println("member 배열이 없어 찾을수 없습니다.");
         }
         for (int i = 0; i < memberArray.length(); i++) {
             JSONObject itemObject = memberArray.getJSONObject(i);
