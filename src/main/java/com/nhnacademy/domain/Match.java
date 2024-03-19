@@ -20,6 +20,10 @@ public class Match {
     public void setWin(int win) {
         this.win = win;
     }
+    @Override
+    public String toString() {
+        return "Match [count=" + count + ", win=" + win + "]";
+    }
     
     
 }

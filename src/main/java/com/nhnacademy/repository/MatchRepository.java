@@ -14,6 +14,7 @@ import com.nhnacademy.domain.Match;
 import com.nhnacademy.domain.UpdateHistory;
 
 public class MatchRepository {
+    public static final String MATCH_KEY = "match";
     UpdateHistoryRepository updateHistoryRepository = new UpdateHistoryRepository();
     JSONObject originalObject;
     JSONArray matchArray;
@@ -21,7 +22,7 @@ public class MatchRepository {
     public void save(Match match){
         originalObject = JsonFileWorker.readJSON();
         try{
-            matchArray = originalObject.getJSONArray("match");
+            matchArray = originalObject.getJSONArray(MATCH_KEY);
         } catch(JSONException e){
             System.out.println("match 배열이 없어 새로 성성합니다");
             matchArray = new JSONArray();
@@ -31,7 +32,7 @@ public class MatchRepository {
         matchObject.put("win", match.getWin());
 
         matchArray.put(matchObject);
-        originalObject.put("match", matchArray);
+        originalObject.put(MATCH_KEY, matchArray);
         JsonFileWorker.saveJSON(originalObject);
         updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Match Saved"));
     }
@@ -41,7 +42,7 @@ public class MatchRepository {
         List<Match> matchList = new LinkedList<>();
         originalObject = JsonFileWorker.readJSON();
         try{
-            matchArray = originalObject.getJSONArray("match");
+            matchArray = originalObject.getJSONArray(MATCH_KEY);
         } catch(JSONException e){
             System.out.println("item 배열이 없어 목록표시가 불가능합니다.");
             return new LinkedList<>();
@@ -50,7 +51,6 @@ public class MatchRepository {
             JSONObject matchObject = matchArray.getJSONObject(i);
             int count = matchObject.getInt("count");
             int win = matchObject.getInt("win");
-            System.out.println("Match Count: " + count + ", Win: " + win);
             matchList.add(new Match(count, win));
         }
         return matchList;

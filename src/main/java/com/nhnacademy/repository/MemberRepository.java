@@ -1,6 +1,5 @@
 package com.nhnacademy.repository;
 import com.nhnacademy.JsonFileWorker;
-import com.nhnacademy.domain.Match;
 import com.nhnacademy.domain.Member;
 import com.nhnacademy.domain.UpdateHistory;
 
@@ -16,6 +15,8 @@ import org.json.JSONObject;
 
 
 public class MemberRepository {
+    public static final String MEMBER_KEY = "member";
+    public static final String ZONE_ID = "Asia/Seoul";
     UpdateHistoryRepository updateHistoryRepository = new UpdateHistoryRepository();
     JSONObject originalObject;
     JSONArray memberArray;
@@ -23,7 +24,7 @@ public class MemberRepository {
     public int save(Member member){
         originalObject = JsonFileWorker.readJSON();
         try{
-            memberArray = originalObject.getJSONArray("member");
+            memberArray = originalObject.getJSONArray(MEMBER_KEY);
         } catch(JSONException e){
             System.out.println("member 배열이 없어 새로 성성합니다");
             memberArray = new JSONArray();
@@ -34,9 +35,9 @@ public class MemberRepository {
         
 
         memberArray.put(memberObject);
-        originalObject.put("member", memberArray);
+        originalObject.put(MEMBER_KEY, memberArray);
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Member Saved"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Member Saved"));
 
         return member.getId();
     }
@@ -44,27 +45,26 @@ public class MemberRepository {
     public void update(int memberId, String name){
         originalObject = JsonFileWorker.readJSON();
         try{
-            memberArray = originalObject.getJSONArray("member");
+            memberArray = originalObject.getJSONArray(MEMBER_KEY);
         } catch(JSONException e){
             System.out.println("member 배열이 없어 찾을수 없습니다.");
         }
         for (int i = 0; i < memberArray.length(); i++) {
             JSONObject memberObject = memberArray.getJSONObject(i);
             int id = memberObject.getInt("id");
-            if(id == memberId){
-                if(!name.equals(""))
-                    memberObject.put("name", name);
+            if(id == memberId && (!name.equals(""))){
+                memberObject.put("name", name);
             }
         }
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Member Updated"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Member Updated"));
     }
 
     // remove
     public void remove(int memberId){
         originalObject = JsonFileWorker.readJSON();
         try{
-            memberArray = originalObject.getJSONArray("member");
+            memberArray = originalObject.getJSONArray(MEMBER_KEY);
         } catch(JSONException e){
             System.out.println("item 배열이 없어 찾을수 없습니다.");
         }
@@ -76,7 +76,7 @@ public class MemberRepository {
             }
         }
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Member Removed"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Member Removed"));
 
     }
 
@@ -85,8 +85,8 @@ public class MemberRepository {
         Member member = null;
         originalObject = JsonFileWorker.readJSON();
         try{
-            memberArray = originalObject.getJSONArray("member");
-        } catch(JSONException e){
+            memberArray = originalObject.getJSONArray(MEMBER_KEY);
+        } catch(NullPointerException e){
             System.out.println("member 배열이 없어 찾을 수 없습니다.");
             return Optional.ofNullable(member);
         }
@@ -108,7 +108,7 @@ public class MemberRepository {
         List<Member> memberList = new LinkedList<>();
         originalObject = JsonFileWorker.readJSON();
         try{
-            memberArray = originalObject.getJSONArray("member");
+            memberArray = originalObject.getJSONArray(MEMBER_KEY);
         } catch(JSONException e){
             System.out.println("member 배열이 없어 목록표시가 불가능합니다.");
             return new LinkedList<>();
@@ -117,7 +117,6 @@ public class MemberRepository {
             JSONObject memberObject = memberArray.getJSONObject(i);
             int id = memberObject.getInt("id");
             String name = memberObject.getString("name");
-            System.out.println("Member ID: " + id + ", Name: " + name);
             memberList.add(new Member(id, name));
         }
         return memberList;

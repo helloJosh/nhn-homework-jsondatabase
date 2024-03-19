@@ -15,6 +15,8 @@ import com.nhnacademy.domain.Item;
 import com.nhnacademy.domain.UpdateHistory;
 
 public class ItemRepository {
+    public static final String ITEM_KEY = "item";
+    public static final String ZONE_ID = "Asia/Seoul";
     UpdateHistoryRepository updateHistoryRepository = new UpdateHistoryRepository();
     JSONObject originalObject;
     JSONArray itemArray;
@@ -22,7 +24,7 @@ public class ItemRepository {
     public int save(Item item){
         originalObject = JsonFileWorker.readJSON();
         try{
-            itemArray = originalObject.getJSONArray("item");
+            itemArray = originalObject.getJSONArray(ITEM_KEY);
         } catch(JSONException e){
             System.out.println("item 배열이 없어 새로 성성합니다");
             itemArray = new JSONArray();
@@ -40,7 +42,7 @@ public class ItemRepository {
 
         originalObject.put("item", itemArray);
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Item Saved"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Item Saved"));
         return item.getId();
     }
 
@@ -49,7 +51,7 @@ public class ItemRepository {
         originalObject = JsonFileWorker.readJSON();
         try{
             itemArray = originalObject.getJSONArray("item");
-        } catch(JSONException e){
+        } catch(NullPointerException e){
             System.out.println("item 배열이 없어 찾을수 없습니다.");
         }
         for (int i = 0; i < itemArray.length(); i++) {
@@ -70,15 +72,16 @@ public class ItemRepository {
                     itemObject.put("attackSpeed", (int)updateParam.getAttackSpeed());
             }
         }
+        System.out.println("Update된 객체가 없습니다.");
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Item Updated"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Item Updated"));
     }
 
     // remove
     public void remove(int itemId){
         originalObject = JsonFileWorker.readJSON();
         try{
-            itemArray = originalObject.getJSONArray("item");
+            itemArray = originalObject.getJSONArray(ITEM_KEY);
         } catch(JSONException e){
             System.out.println("item 배열이 없어 찾을수 없습니다.");
         }
@@ -90,7 +93,7 @@ public class ItemRepository {
             }
         }
         JsonFileWorker.saveJSON(originalObject);
-        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "Item Removed"));
+        updateHistoryRepository.save(new UpdateHistory(LocalDateTime.now(ZoneId.of(ZONE_ID)), "Item Removed"));
 
     }
 
@@ -98,8 +101,8 @@ public class ItemRepository {
         Item item = null;
         originalObject = JsonFileWorker.readJSON();
         try{
-            itemArray = originalObject.getJSONArray("item");
-        } catch(JSONException e){
+            itemArray = originalObject.getJSONArray(ITEM_KEY);
+        } catch(NullPointerException e){
             System.out.println("item 배열이 없어 찾을수 없습니다.");
             return Optional.ofNullable(item);
         }
@@ -129,7 +132,7 @@ public class ItemRepository {
         List<Item> itemList = new LinkedList<>();
         originalObject = JsonFileWorker.readJSON();
         try{
-            itemArray = originalObject.getJSONArray("item");
+            itemArray = originalObject.getJSONArray(ITEM_KEY);
         } catch(JSONException e){
             System.out.println("item 배열이 없어 목록표시가 불가능합니다.");
             return new LinkedList<>();
@@ -143,9 +146,6 @@ public class ItemRepository {
             int defense = itemObject.getInt("defense");
             int movingSpeed = itemObject.getInt("movingSpeed");
             int attackSpeed = itemObject.getInt("attackSpeed");
-            System.out.println("Item ID: " + id + ", Model: " + model + ", Energy: " + energy +
-                    ", Attack: " + attack + ", Defense: " + defense + ", Moving Speed: " + movingSpeed +
-                    ", Attack Speed: " + attackSpeed);
             itemList.add(new Item(id, model, energy, attack, defense, movingSpeed, attackSpeed));
         }
         return itemList;

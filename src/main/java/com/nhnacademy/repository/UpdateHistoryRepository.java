@@ -13,13 +13,14 @@ import com.nhnacademy.JsonFileWorker;
 import com.nhnacademy.domain.UpdateHistory;
 
 public class UpdateHistoryRepository {
+    public static final String UPDATE_KEY = "updateHistory";
     JSONObject originalObject;
     JSONArray updateHistoryArray;
     // save
     public void save(UpdateHistory updateHistory){
         originalObject = JsonFileWorker.readJSON();
         try{
-            updateHistoryArray = originalObject.getJSONArray("updateHistory");
+            updateHistoryArray = originalObject.getJSONArray(UPDATE_KEY);
         } catch(JSONException e){
             System.out.println("updateHistory 배열이 없어 새로 성성합니다");
             updateHistoryArray = new JSONArray();
@@ -30,7 +31,7 @@ public class UpdateHistoryRepository {
         
 
         updateHistoryArray.put(updateHistoryObject);
-        originalObject.put("updateHistory", updateHistoryArray);
+        originalObject.put(UPDATE_KEY, updateHistoryArray);
         JsonFileWorker.saveJSON( originalObject);
     }
     
@@ -39,7 +40,7 @@ public class UpdateHistoryRepository {
         List<UpdateHistory> updateHistoryList = new LinkedList<>();
         originalObject = JsonFileWorker.readJSON();
         try{
-            updateHistoryArray = originalObject.getJSONArray("updateHistory");
+            updateHistoryArray = originalObject.getJSONArray(UPDATE_KEY);
         } catch(JSONException e){
             System.out.println("member 배열이 없어 목록표시가 불가능합니다.");
             return new LinkedList<>();
@@ -49,7 +50,6 @@ public class UpdateHistoryRepository {
             String history = updateHistoryObject.getString("history");
             LocalDateTime localDateTime = LocalDateTime.parse(history, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             String updatedContext = updateHistoryObject.getString("updatedContext");
-            System.out.println("History: " + history + ", Updated Context: " + updatedContext);
             updateHistoryList.add(new UpdateHistory(localDateTime, updatedContext));
         }
         return updateHistoryList;

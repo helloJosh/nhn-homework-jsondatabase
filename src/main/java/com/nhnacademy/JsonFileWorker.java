@@ -7,13 +7,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class JsonFileWorker {
-    private String filePath;
+    public static String filePath;
+    private JsonFileWorker(){}
     public static void saveJSON(JSONObject json){
-        String filePath = "./record.json";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(json.toString());
         } catch (IOException e) {
@@ -22,7 +23,6 @@ public class JsonFileWorker {
     }
 
     public static JSONObject readJSON() {
-        String filePath = "./record.json";
         File file = new File(filePath);
         
         StringBuilder jsonString = new StringBuilder();
@@ -43,6 +43,16 @@ public class JsonFileWorker {
             try {
                 if (file.createNewFile()) {
                     System.out.println("새로운 파일을 생성했습니다.");
+                    JSONObject object = new JSONObject();
+                    JSONArray itemArray = new JSONArray();
+                    JSONArray matchArray = new JSONArray();
+                    JSONArray memberArray = new JSONArray();
+                    JSONArray historyArray = new JSONArray();
+                    object.put("item", itemArray);
+                    object.put("match", matchArray);
+                    object.put("member", memberArray);
+                    object.put("history", historyArray);
+                    saveJSON(object);
                 } else {
                     System.out.println("파일을 생성하는데 실패했습니다.");
                 }
@@ -54,11 +64,7 @@ public class JsonFileWorker {
         }
     }
 
-    public void setfilePath(String filePath){
-        this.filePath = filePath;
+    public static void setFilePath(String newFilePath){
+        filePath = newFilePath;
     }
-    public String getfilePath(){
-        return this.filePath;
-    }
-    
 }

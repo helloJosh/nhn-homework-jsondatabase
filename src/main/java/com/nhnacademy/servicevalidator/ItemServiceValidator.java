@@ -7,9 +7,9 @@ import com.nhnacademy.repository.ItemRepository;
 import com.nhnacademy.repository.ItemUpdateDto;
 
 public class ItemServiceValidator {
-    ItemRepository itemRepository;
+    ItemRepository itemRepository = new ItemRepository();
     public void save(int id, String model, int energy, int attack, int defense, int movingSpeed, int attackSpeed){
-        if(!itemRepository.findById(id).isEmpty())
+        if(itemRepository.findById(id).isPresent())
             throw new IllegalArgumentException("중복된 아이디입니다.");
         if(!(0 <= energy && energy <= 10000))
             throw new IllegalArgumentException("체력은 0~10000까지만 설정할 수 있습니다.");

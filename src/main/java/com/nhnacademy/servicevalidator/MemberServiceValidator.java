@@ -5,10 +5,10 @@ import com.nhnacademy.domain.Member;
 import com.nhnacademy.repository.MemberRepository;
 
 public class MemberServiceValidator {
-    MemberRepository memberRepository;
+    MemberRepository memberRepository = new MemberRepository();
 
     public void save(int id, String name){
-        if(!memberRepository.findById(id).isEmpty())
+        if(memberRepository.findById(id).isPresent())
             throw new IllegalArgumentException("중복된 아이디입니다.");
         memberRepository.save(new Member(id, name));
     }

@@ -24,7 +24,27 @@
             "mainClass": "com.nhnacademy.Main",
             "projectName": "recorder",
             "args": [
-                "-i"
+                // "-a",
+                // "-t",
+                // "user",
+                // "-i",
+                // "1234",
+                // "-n",
+                // "xtra",
+                // "-f",
+                // "./recorder.json"
+                // "-D",
+                // "-t",
+                // "user",
+                // "-i",
+                // "1234",
+                // "-f",
+                // "./recorder.json"
+                "-l",
+                "-t",
+                "user",
+                "-f",
+                "./recorder.json"
             ]
         }
     ]
